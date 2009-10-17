@@ -1,6 +1,5 @@
 require 'culerity'
 
-
 Symbol.class_eval do
   def to_proc
     Proc.new{|object| object.send(self)}
@@ -29,7 +28,7 @@ end
 When /I press "(.*)"/ do |button|
   button = [$browser.button(:text, button), $browser.button(:id, button)].find(&:exist?)
   button.click
-  $browser.wait
+  When 'I wait for the AJAX call to finish'
   assert_successful_response
 end
 
@@ -41,13 +40,13 @@ When /I follow "(.*)"/ do |link|
   _link = [[:text, /^#{Regexp.escape(link)}$/], [:id, link], [:title, link]].map{|args| $browser.link(*args)}.find{|__link| __link.exist?}
   raise "link \"#{link}\" not found" unless _link
   _link.click
-  $browser.wait
+  When 'I wait for the AJAX call to finish'
   assert_successful_response
 end
 
 When /I follow \/(.*)\// do |link|
   $browser.link(:text, /#{link}/).click
-  $browser.wait
+  When 'I wait for the AJAX call to finish'
   assert_successful_response
 end
 
@@ -95,7 +94,8 @@ When /I go to the (.+)/ do |path|
 end
 
 When /I wait for the AJAX call to finish/ do
-  $browser.wait
+  #$browser.wait
+  sleep 0.2
 end
 
 When /^I visit "([^"]+)"$/ do |url|
