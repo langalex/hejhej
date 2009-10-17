@@ -1,0 +1,23 @@
+<h1>{{ name }}</h1>
+
+<h2>Words</h2>
+<ul>
+  {{#random_blanks}}
+    <li>{{ . }}</li>
+  {{/random_blanks}}
+</ul>
+
+<h2>Text</h2>
+<form action="#/clozes/{{_id}}/completions" method="post">
+  <div id="cloze">
+    {{#texts_and_blanks}}
+      {{#text}}
+        <span class="text">{{text}}</span>
+      {{/text}}
+      {{#blank}}
+        <input type="text" class="blank" name="answers"/>
+      {{/blank}}
+    {{/texts_and_blanks}}
+  </div>
+  <p><input type="submit" value="Done"/></p>
+</form>

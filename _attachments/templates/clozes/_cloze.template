@@ -1,3 +1,0 @@
-<li>
-  <a href="#/clozes/<%= cloze._id %>"><%= cloze.name %></a>
-</li>

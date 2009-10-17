@@ -2,11 +2,15 @@
   <head>
     <link rel="stylesheet" href="../vendor/jspec/jspec.css" type="text/css"/>
     <script src="../vendor/jspec/jspec.js"></script>
+    <script src="../vendor/mustache/mustache.js"></script>
     <script src="../js/models/cloze.js"></script>
+    <script src="../js/views/cloze.js"></script>
     <script>
       function runSuites() {
         JSpec
         .exec('cloze_spec.js')
+        .exec('cloze_view_spec.js')
+        .exec('mustache_spec.js')
         .run({ failuresOnly : true })
         .report();
       }

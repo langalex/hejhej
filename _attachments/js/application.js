@@ -4,30 +4,26 @@ $.CouchApp(function(app) {
 });
 var content = $('#content');
 
-
 var sammy = new Sammy.Application(function() { with(this) {
   element_selector = '#content';
-  use(Sammy.Template);
+  use(Sammy.Mustache);
   
   get('#/clozes/new', function() { with(this) {
-    partial('./templates/clozes/new.template');
+    partial('./templates/clozes/new.mustache');
   }});
   
   get('#/clozes/:id', function() { with(this) {
     var context = this;
     couchapp.db.openDoc(params['id'], {
       success: function(doc) {
-        context.cloze = Cloze.init(doc);
-        context.partial('./templates/clozes/show.template', function(html) {
-          content.html(html);
-          this.each(context.cloze.texts_and_blanks(), function(i, text_or_blank) {
-            if(text_or_blank.text) {
-              content.find('#cloze').append('<span class="text">' + text_or_blank.text + '</span>');
-            } else if(text_or_blank.blank) {
-              content.find('#words').append($('<li>' + text_or_blank.blank + '</li>'));
-              content.find('#cloze').append($('<span class="blank"><input type="text" class="blank" name="answers" id="blank' + $('#content #cloze input.blank').length + '"/></span>'));
-            }
+        var view = new ClozeView(new Cloze(doc));
+        context.partial('./templates/clozes/show.mustache', view, function(html) {
+          var dom = $(html);
+          dom.find('input.blank').each(function(i) {
+            $(this).attr('id', 'blank' + i);
           });
+          $(element_selector).html(dom);
+          
         });
       },
       error: function() {
@@ -40,7 +36,7 @@ var sammy = new Sammy.Application(function() { with(this) {
     var context = this;
     couchapp.db.openDoc(params['id'], {
       success: function(doc) {
-        var cloze = Cloze.init(doc);
+        var cloze = new Cloze(doc);
         if(cloze.correct_answers(context.params['answers'])) {
           trigger('notice', {message: 'You got ' + cloze.blanks.length + ' out of ' + cloze.blanks.length + ' right.'});
         } else {
@@ -56,20 +52,13 @@ var sammy = new Sammy.Application(function() { with(this) {
     couchapp.design.view("clozes", {
        include_docs: true,
        success: function(json) {
-         context.partial('./templates/clozes/index.template', function(html) {
-           content.html(html);
-           this.each(json['rows'], function(i, cloze) {
-             this.partial('./templates/clozes/_cloze.template', {cloze: cloze.doc}, function(cloze_html) {
-               $(cloze_html).appendTo('#all_clozes');
-             });
-           });
-         });
+         context.partial('./templates/clozes/index.mustache', {clozes: json['rows'].map(function(row) {return row.doc})});
        }
      });
   });
   
   post('#/clozes', function() { with(this) {
-    var page = Cloze.init(params);
+    var page = new Cloze(params);
     if(page.valid()) {
       couchapp.db.saveDoc(page.to_json(), {
         success: function(res) {

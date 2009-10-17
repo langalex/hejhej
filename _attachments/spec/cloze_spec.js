@@ -1,6 +1,6 @@
 describe 'Cloze'
   before_each
-    cloze = Cloze.init({texts: ['hello', 'world', 'there'], blanks: ['dear', 'out']})
+    cloze = new Cloze({texts: ['hello', 'world', 'there'], blanks: ['dear', 'out']});
   end
   
   describe 'texts_and_blanks'
@@ -21,7 +21,7 @@ describe 'Cloze'
   
   describe 'init with texts string'
     it "should parse the text and blank parts from the text"
-      cloze = Cloze.init({text: "hello [dear] world [out] there"});
+      cloze = new Cloze({text: "hello [dear] world [out] there"});
       cloze.texts.should.eql ['hello', 'world', 'there']
       cloze.blanks.should.eql ['dear', 'out']
     end

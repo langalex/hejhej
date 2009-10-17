@@ -1,26 +1,26 @@
-Cloze = {
-  init: function(attributes) {
-    var that = this;
-    this._id = attributes._id;
-    this._rev = attributes._rev;
-    this['name'] = attributes['name'];
-    this['texts'] = attributes['texts'];
-    this['blanks'] = attributes['blanks'];
-    if(attributes['text']) {
-      this['texts'] = [];
-      this['blanks'] = [];
-      attributes['text'].split(/[\]\[]+/).forEach(function(token, i) {
-        var trimmed = token.replace(/^\s+|\s+$/g, '');
-        if(i % 2 == 0) {
-          that['texts'].push(trimmed);
-        } else {
-          that['blanks'].push(trimmed);
-        }
-      });
-    };
-    this.created_at = attributes.created_at || Date();
-    return this;
-  },
+Cloze = function(attributes) {
+  var that = this;
+  this._id = attributes._id;
+  this._rev = attributes._rev;
+  this['name'] = attributes['name'];
+  this['texts'] = attributes['texts'];
+  this['blanks'] = attributes['blanks'];
+  if(attributes['text']) {
+    this['texts'] = [];
+    this['blanks'] = [];
+    attributes['text'].split(/[\]\[]+/).forEach(function(token, i) {
+      var trimmed = token.replace(/^\s+|\s+$/g, '');
+      if(i % 2 == 0) {
+        that['texts'].push(trimmed);
+      } else {
+        that['blanks'].push(trimmed);
+      }
+    });
+  };
+  this.created_at = attributes.created_at || Date();
+};
+
+Cloze.prototype = {
   errors: [],
   valid: function() {
     this.errors = [];
