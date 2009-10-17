@@ -1,0 +1,10 @@
+<h1><%= cloze.name %></h1>
+
+<h2>Words</h2>
+<ul id="words"></ul>
+
+<h2>Text</h2>
+<form action="#/clozes/<%= cloze._id %>/completions" method="post">
+  <div id="cloze"></div>
+  <p><input type="submit" value="Done"/></p>
+</form>

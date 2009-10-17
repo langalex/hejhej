@@ -1,16 +1,24 @@
 require 'culerity'
 
-class Symbol
+
+Symbol.class_eval do
   def to_proc
     Proc.new{|object| object.send(self)}
   end
-end
+end unless :symbol.respond_to?(:to_proc)
 
 Before do
   $server ||= Culerity::run_server
   $browser = Culerity::RemoteBrowserProxy.new $server, {:browser => :firefox, :javascript_exceptions => true, :resynchronize => true, :status_code_exceptions => true}
   $browser.log_level = :warning
-  @host = 'http://localhost:5984'
+end
+
+def host
+  'http://localhost:5984'
+end
+
+def database
+  'hejhej'
 end
 
 at_exit do
@@ -21,6 +29,7 @@ end
 When /I press "(.*)"/ do |button|
   button = [$browser.button(:text, button), $browser.button(:id, button)].find(&:exist?)
   button.click
+  $browser.wait
   assert_successful_response
 end
 
@@ -81,7 +90,7 @@ When /I choose "(.*)"/ do |field|
 end
 
 When /I go to the (.+)/ do |path|
-  $browser.goto @host + path_to(path)
+  $browser.goto host + path_to(path)
   assert_successful_response
 end
 
@@ -90,12 +99,16 @@ When /I wait for the AJAX call to finish/ do
 end
 
 When /^I visit "([^"]+)"$/ do |url|
-  $browser.goto @host + url
+  $browser.goto host + url
 end
 
-Then /I should see "(.*)"/ do |text|
+Then /^I should see "(.*)"$/ do |text|
+  Then "I should see /#{Regexp.escape(text)}/"
+end
+
+Then /^I should see \/(.*)\/$/ do |text|
   # if we simply check for the browser.html content we don't find content that has been added dynamically, e.g. after an ajax call
-  div = $browser.div(:text, /#{Regexp.escape text}/)
+  div = $browser.div(:text, /#{text}/)
   begin
     div.html
   rescue
@@ -103,6 +116,7 @@ Then /I should see "(.*)"/ do |text|
     raise("div with '#{text}' not found")
   end
 end
+
 
 Then /I should see the text "(.*)"/ do |text|
   $browser.html.should include(text)
@@ -124,7 +138,7 @@ end
 Then /I should not find the page "([^"]+)"/ do |url|
   no_exception = false
   begin
-    $browser.goto @host + url
+    $browser.goto host + url
     no_exception = true
   rescue => e
     e.message.should =~ /404/

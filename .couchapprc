@@ -2,6 +2,9 @@
   "env": { 
     "default": {
       "db": "http://localhost:5984/hejhej"
+    },
+    "test": {
+      "db": "http://localhost:5984/hejhej_test"
     }
   }
 }

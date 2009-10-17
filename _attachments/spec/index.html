@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../vendor/jspec/jspec.css" type="text/css"/>
+    <script src="../vendor/jspec/jspec.js"></script>
+    <script src="../js/models/cloze.js"></script>
+    <script>
+      function runSuites() {
+        JSpec
+        .exec('cloze_spec.js')
+        .run({ failuresOnly : true })
+        .report();
+      }
+    </script>
+  </head>
+  <body onLoad="runSuites()">
+    <div id="jspec"></div>
+  </body>
+</html>
