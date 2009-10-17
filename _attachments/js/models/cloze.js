@@ -47,8 +47,18 @@ Cloze.prototype = {
   },
   correct_answers: function(answers) {
     return this.blanks.reduce(function(res, blank, i) {
-      return res && answers[i] == blank;
-    }, true);
+      if(answers[i] == blank) {
+        res.push(blank);
+      } else {
+        res.push(null);
+      };
+      return res;
+    }, []);
+  },
+  correct_answers_count: function(answers) {
+    return this.correct_answers(answers).reduce(function(sum, answer) {
+      return sum + (answer === null ? 0 : 1);
+    }, 0);
   },
   to_json: function() {
     return {

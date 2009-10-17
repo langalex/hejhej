@@ -1,6 +1,12 @@
 require 'restclient'
 require 'json'
 
+Before do
+  RestClient.delete "#{host}/#{database}" rescue nil
+  RestClient.put "#{host}/#{database}", ""
+  system "couchapp push"
+end
+
 Given /^a cloze "([^\"]*)" with the text "([^\"]*)"$/ do |name, text|
   When "I go to the start page"
   And 'I follow "Clozes"'
@@ -10,8 +16,10 @@ Given /^a cloze "([^\"]*)" with the text "([^\"]*)"$/ do |name, text|
   And 'I press "Save"'
 end
 
-Before do
-  RestClient.delete "#{host}/#{database}" rescue nil
-  RestClient.put "#{host}/#{database}", ""
-  system "couchapp push"
+Then /^"([^\"]*)" should have the class "([^\"]*)"$/ do |element_id, css_class|
+  $browser.text_field(:id, element_id).attribute_value(:class).should include(css_class)
+end
+
+Then /^"([^\"]*)" should not have the class "([^\"]*)"$/ do |element_id, css_class|
+  $browser.text_field(:id, element_id).attribute_value(:class).should_not include(css_class)
 end

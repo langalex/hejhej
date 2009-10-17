@@ -3,12 +3,15 @@ ClozeView = function(cloze) {
 }
 
 ClozeView.prototype = {
+  _id: function() {
+    return this.cloze._id;
+  },
   name: function() {
     return this.cloze.name;
   },
   random_blanks: function() {
     return this.cloze.blanks.sort(function() {
-      Math.round((Math.random() * 2) - 1)
+      return Math.round((Math.random() * 2) - 1);
     });
   },
   texts_and_blanks: function() {

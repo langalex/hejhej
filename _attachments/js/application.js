@@ -37,11 +37,13 @@ var sammy = new Sammy.Application(function() { with(this) {
     couchapp.db.openDoc(params['id'], {
       success: function(doc) {
         var cloze = new Cloze(doc);
-        if(cloze.correct_answers(context.params['answers'])) {
-          trigger('notice', {message: 'You got ' + cloze.blanks.length + ' out of ' + cloze.blanks.length + ' right.'});
-        } else {
-          trigger('notice', {message: 'Try again.'});
-        };
+        trigger('notice', {message: 'You got ' + cloze.correct_answers_count(context.params['answers']) + ' out of ' + cloze.blanks.length + ' right.'});
+        $(element_selector).find('.blank').removeClass('error');
+        cloze.correct_answers(params['answers']).forEach(function(answer, i) {
+          if(answer === null) {
+            $(element_selector).find('.blank:eq(' + i + ')').addClass('error');
+          };
+        });
       }
     });
     return false;

@@ -9,22 +9,23 @@ describe 'Cloze'
     end
   end
   
-  describe 'correct_answers'
-    it 'should return true if all answers match the blanks'
-      cloze.correct_answers(['dear', 'out']).should.be_true
-    end
-    
-    it 'shuld return false as soon as one does not match'
-      cloze.correct_answers(['out', 'dear']).should.be_false
-    end
-  end
-  
   describe 'init with texts string'
     it "should parse the text and blank parts from the text"
-      cloze = new Cloze({text: "hello [dear] world [out] there"});
+      cloze = new Cloze({text: "hello [dear] world [out] there"})
       cloze.texts.should.eql ['hello', 'world', 'there']
       cloze.blanks.should.eql ['dear', 'out']
     end
   end
-
+  
+  describe "correct answers"
+    it "should return the correct answers and nil for incorrect answers"
+      cloze.correct_answers(['dear', 'in']).should.eql ['dear', null]
+    end
+  end
+  
+  describe "correct answers_count"
+    it "should return the no. of correct answers"
+      cloze.correct_answers_count(['dear', 'in']).should.eql 1
+    end
+  end
 end
