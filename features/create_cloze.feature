@@ -5,6 +5,7 @@ Feature: Text with blanks
   
   Scenario: create text with blanks
     When I go to the start page
+      And I follow "Clozes"
       And I follow "New Cloze"
       And I fill in "Name" with "railscamp"
       And I fill in "Text" with "i am [at] [the] railscamp uk."
