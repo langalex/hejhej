@@ -1,0 +1,13 @@
+<h1>{{ name }}</h1>
+
+<p>{{ description }}</p>
+
+<form action="#/translations/{{_id}}/completions" method="post">
+  <dl>
+    {{#terms}}
+      <dt class="text">{{term}}</dt>
+      <dd><input type="text" name="answers" id="translation{{index}}"/></dd>
+    {{/terms}}
+  </dl>
+  <p><input type="submit" value="Done"/></p>
+</form>

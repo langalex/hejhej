@@ -15,8 +15,13 @@ ClozeView.prototype = {
     });
   },
   texts_and_blanks: function() {
+    var index = 0;
     return this.cloze.texts_and_blanks().map(function(text_or_blank) {
-      return{text: text_or_blank.text || null, blank: text_or_blank.blank || null};
+      var val = {text: text_or_blank.text || null, blank: text_or_blank.blank || null, index: index};
+      if(text_or_blank.blank) {
+        index += 1;
+      }
+      return val;
     });
   }
 }

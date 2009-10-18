@@ -21,11 +21,22 @@ describe 'Cloze'
     it "should return the correct answers and nil for incorrect answers"
       cloze.correct_answers(['dear', 'in']).should.eql ['dear', null]
     end
+    
+    it "should work if there is only one blank"
+      cloze = new Cloze({texts: ['hello', 'world'], blanks: ['dear']});
+      cloze.correct_answers('dear').should.eql ['dear']
+    end
   end
   
   describe "correct answers_count"
     it "should return the no. of correct answers"
       cloze.correct_answers_count(['dear', 'in']).should.eql 1
     end
+    
+    it "should work if there is only one blank"
+      cloze = new Cloze({texts: ['hello', 'world'], blanks: ['dear']});
+      cloze.correct_answers_count('dear').should.eql 1
+    end
+    
   end
 end

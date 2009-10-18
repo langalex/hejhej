@@ -1,17 +1,20 @@
 <html>
   <head>
-    <link rel="stylesheet" href="../vendor/jspec/jspec.css" type="text/css"/>
-    <script src="../vendor/jspec/jspec.js"></script>
-    <script src="../vendor/mustache/mustache.js"></script>
+    <link rel="stylesheet" href="jspec/jspec.css" type="text/css"/>
+    <script src="jspec/jspec.js"></script>
     <script src="../js/models/cloze.js"></script>
+    <script src="../js/models/translation.js"></script>
     <script src="../js/views/cloze.js"></script>
+    <script src="../js/views/translation.js"></script>
     <script>
       function runSuites() {
         JSpec
         .exec('cloze_spec.js')
         .exec('cloze_view_spec.js')
+        .exec('translation_spec.js')
+        .exec('translation_view_spec.js')
         .exec('mustache_spec.js')
-        .run({ failuresOnly : true })
+        .run({failuresOnly : true})
         .report();
       }
     </script>

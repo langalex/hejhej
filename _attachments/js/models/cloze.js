@@ -46,8 +46,9 @@ Cloze.prototype = {
     }, []));
   },
   correct_answers: function(answers) {
+    var _answers = [answers].flatten()
     return this.blanks.reduce(function(res, blank, i) {
-      if(answers[i] == blank) {
+      if(_answers[i] == blank) {
         res.push(blank);
       } else {
         res.push(null);

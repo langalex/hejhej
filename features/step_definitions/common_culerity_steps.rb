@@ -95,7 +95,7 @@ end
 
 When /I wait for the AJAX call to finish/ do
   #$browser.wait
-  sleep 0.2
+  sleep 0.4
 end
 
 When /^I visit "([^"]+)"$/ do |url|

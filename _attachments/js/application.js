@@ -8,74 +8,55 @@ var sammy = new Sammy.Application(function() { with(this) {
   element_selector = '#content';
   use(Sammy.Mustache);
   
-  get('#/clozes/new', function() { with(this) {
-    partial('./templates/clozes/new.mustache');
-  }});
-  
-  get('#/clozes/:id', function() { with(this) {
-    var context = this;
-    couchapp.db.openDoc(params['id'], {
-      success: function(doc) {
-        var view = new ClozeView(new Cloze(doc));
-        context.partial('./templates/clozes/show.mustache', view, function(html) {
-          var dom = $(html);
-          dom.find('input.blank').each(function(i) {
-            $(this).attr('id', 'blank' + i);
-          });
-          $(element_selector).html(dom);
-          
+  helpers({
+    create_object: function(name, params) {
+      var _prototype = eval(name);
+      var object = new _prototype(params);
+      if(object.valid()) {
+        couchapp.db.saveDoc(object.to_json(), {
+          success: function(res) {
+            trigger('notice', {message: name + ' saved'});
+            redirect('#/' + name.toLowerCase() + 's/' + res.id);
+          },
+          error: function(response_code, res) {
+            trigger('error', {message: 'Error saving ' + name + ': ' + res});
+          }
         });
-      },
-      error: function() {
-        context.notFound();
-      }
-    });
-  }});
-  
-  post('#/clozes/:id/completions', function() { with(this) {
-    var context = this;
-    couchapp.db.openDoc(params['id'], {
-      success: function(doc) {
-        var cloze = new Cloze(doc);
-        trigger('notice', {message: 'You got ' + cloze.correct_answers_count(context.params['answers']) + ' out of ' + cloze.blanks.length + ' right.'});
-        $(element_selector).find('.blank').removeClass('error');
-        cloze.correct_answers(params['answers']).forEach(function(answer, i) {
-          if(answer === null) {
-            $(element_selector).find('.blank:eq(' + i + ')').addClass('error');
-          };
-        });
-      }
-    });
-    return false;
-  }});
-  
-  get('#/clozes', function() {
-    var context = this;
-    couchapp.design.view("clozes", {
-       include_docs: true,
-       success: function(json) {
-         context.partial('./templates/clozes/index.mustache', {clozes: json['rows'].map(function(row) {return row.doc})});
-       }
-     });
-  });
-  
-  post('#/clozes', function() { with(this) {
-    var page = new Cloze(params);
-    if(page.valid()) {
-      couchapp.db.saveDoc(page.to_json(), {
-        success: function(res) {
-          trigger('notice', {message: 'Page Saved'});
-          redirect('#/pages/' + res.id)
+      } else {
+        trigger('error', {message: object.errors.join(", ")});
+      };
+      return false;
+    },
+    list_objects: function(name, view_name, params) {
+      var context = this;
+      couchapp.design.view(view_name, {
+         include_docs: true,
+         success: function(json) {
+           var plural_name = name.toLowerCase() + 's';
+           var view = {};
+           view[plural_name] = json['rows'].map(function(row) {return row.doc});
+           context.partial('./templates/' + plural_name + '/index.mustache', view);
+         }
+       });
+    },
+    load_object: function(name, params) {
+      var context = this;
+      couchapp.db.openDoc(params['id'], {
+        success: function(doc) {
+          var _prototype = eval(name);
+          var view_prototype = eval(name + 'View');
+          var view = new view_prototype(new _prototype(doc));
+          context.partial('./templates/' + name.toLowerCase() + 's/show.mustache', view);
         },
-        error: function(response_code, res) {
-          trigger('error', {message: 'Error saving page: ' + res});
+        error: function() {
+          context.notFound();
         }
       });
-    } else {
-      trigger('error', {message: page.errors.join(", ")});
-    };
-    return false;
-  }});
+    }
+  });
+  
+  Clozes(this);
+  Translations(this);
   
   before(function() {
     $('#error').html('').hide();
