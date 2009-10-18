@@ -1,12 +1,3 @@
-require 'restclient'
-require 'json'
-
-Before do
-  RestClient.delete "#{host}/#{database}" rescue nil
-  RestClient.put "#{host}/#{database}", ""
-  system "couchapp push"
-end
-
 Given /^a cloze "([^\"]*)" with the text "([^\"]*)"$/ do |name, text|
   When "I go to the start page"
   And 'I follow "Clozes"'

@@ -7,6 +7,12 @@ User = function(attributes) {
 }
 
 User.prototype = {
+  password_correct: function(password) {
+    return this.encrypt(password) == this.encrypted_password;
+  },
+  encrypt: function(string) {
+    return string.reverse(); // TODO replace with something more secure
+  },
   valid: function() {
     this.errors = [];
     if(!this._id) {
@@ -27,11 +33,7 @@ User.prototype = {
     return {
       _id: this._id,
       _rev: this._rev,
-      encrypted_password: this.encrypted_password || encrypt(this.password)
-    };
-    
-    function encrypt(string) {
-      return string.reverse(); // TODO replace with something more secure
+      encrypted_password: this.encrypted_password || this.encrypt(this.password)
     };
   }
 };

@@ -71,11 +71,18 @@ var sammy = new Sammy.Application(function() { with(this) {
   Clozes(this);
   Translations(this);
   Users(this);
+  Sessions(this);
   
   before(function() {
+    this.current_user(function() {
+      $('#nav .login, #nav .signup').hide();
+      $('#nav .account').show();
+    });
     $('#error').html('').hide();
     $('#notice').html('').hide();
-  })
+  });
+  
+  get('#/', function() {});
   
   bind('error', function(e, data) { with(this) {
     $('#error').html(data.message).show().css('background', 'red');
