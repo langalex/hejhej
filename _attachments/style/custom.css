@@ -1,0 +1,63 @@
+/* general */
+
+.container {width:950px;margin:0 auto;}
+
+#header {
+  background: blue;
+  clear: left;
+  height: 60px;
+}
+
+#header #logo {
+  color: #FF0;
+  float: right;
+  font-size: 4.0em;
+  font-weight: bold;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+#content {
+  background-color: #EEF;
+  padding: 20px;
+}
+
+
+/* forms */
+
+input.error {
+  border: 1px red solid;
+}
+
+/* navigation */
+
+#nav .account {
+  display: none; /* only shown after login */
+}
+
+#nav {
+  float: left;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+#nav ul {
+  margin-left: 0px;
+}
+
+#nav li {
+  display: inline-block;
+}
+
+#nav li a {
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  font-size: 1.5em;
+}
+
+#nav li a.active {
+  background: #000;
+}

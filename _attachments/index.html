@@ -2,22 +2,34 @@
 <html>
   <head>
     <title>hejhej</title>
-    <link rel="stylesheet" href="style/screen.css" type="text/css">
+    <link rel="stylesheet" href="style/blueprint/screen.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="style/blueprint/print.css" type="text/css" media="printer">
+    <link rel="stylesheet" href="style/custom.css" type="text/css" media="screen">
   </head>
   <body>
-    <div id="nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li class="signup"><a href="#/users/new">Sign Up</a></li>
-        <li class="login"><a href="#/sessions/new">Log In</a></li>
-        <li class="account"><a href="#/account">Account</a></li>
-        <li><a href="#/clozes">Clozes</a></li>
-        <li><a href="#/translations">Translations</a></li>
-      </ul>
+    <div class="container">
+      <div id="header">
+        <div id="logo">hejhej</div>
+        <div id="nav" class="column span-17">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="signup"><a href="#/users/new">Sign Up</a></li>
+            <li class="login"><a href="#/sessions/new">Log In</a></li>
+            <li class="account"><a href="#/account">Account</a></li>
+            <li><a href="#/clozes">Clozes</a></li>
+            <li><a href="#/translations">Translations</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="error"></div>
+      <div id="notice"></div>
+      <div id="content" class="column span-23">
+        
+        <h1>Hej hej and welcome</h1>
+        
+        <p>Hejhej is a language learning website that helps your learning by providing various learning assignments and tests.</p>
+      </div>
     </div>
-    <div id="error"></div>
-    <div id="notice"></div>
-    <div id="content"></div>
   </body>
   <script type="text/javascript" charset="utf-8"></script>
   <script src="./vendor/json/json2.js"></script>
