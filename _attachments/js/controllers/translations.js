@@ -25,8 +25,21 @@ Translations = function(sammy) { with(sammy) {
     this.list_objects('Translation', 'translations', this.params);
   });
   
+  post('#/translations/:id/completions', function() {
+    var context = this;
+    couchapp.db.openDoc(this.params['id'], {
+      success: function(doc) {
+        var translation = new Translation(doc);
+        trigger('notice', {message: 'You got ' + translation.correct_answers_count(context.params['answers']) + ' out of ' + translation.terms.length + ' right.'});
+        context.mark_false_answers(translation.correct_answers(context.params['answers']), 'input.translation');
+      }
+    });
+    return false;
+  });
+  
   post('#/translations', function() {
     return this.create_object('Translation', this.params);
   });
+  
   
 }};

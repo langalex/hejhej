@@ -164,12 +164,7 @@ end
 
 When 'show response' do
   p $browser.url
-  tmp_file = '/tmp/culerity_results.html'
-  FileUtils.rm_f tmp_file
-  File.open(tmp_file, 'w') do |f|
-    f << $browser.html
-  end
-  `open #{tmp_file}`
+  open_response_in_browser
 end
 
 
@@ -178,10 +173,12 @@ def find_label(text)
 end
 
 def open_response_in_browser
-  tmp = Tempfile.new 'culerity_results'
-  tmp << $browser.html
-  tmp.close
-  `open -a /Applications/Safari.app #{tmp.path}`
+  tmp_file = '/tmp/culerity_results.html'
+  FileUtils.rm_f tmp_file
+  File.open(tmp_file, 'w') do |f|
+    f << $browser.div(:id, 'content').html
+  end
+  `open #{tmp_file}`
 end
 
 def assert_successful_response

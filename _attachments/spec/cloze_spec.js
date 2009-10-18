@@ -37,6 +37,5 @@ describe 'Cloze'
       cloze = new Cloze({texts: ['hello', 'world'], blanks: ['dear']});
       cloze.correct_answers_count('dear').should.eql 1
     end
-    
   end
 end

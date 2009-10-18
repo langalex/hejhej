@@ -52,6 +52,14 @@ var sammy = new Sammy.Application(function() { with(this) {
           context.notFound();
         }
       });
+    },
+    mark_false_answers: function(answers, input_selector) {
+      $(element_selector).find(input_selector).removeClass('error');
+      answers.forEach(function(answer, i) {
+        if(answer === null) {
+          $(element_selector).find(input_selector + ':eq(' + i + ')').addClass('error');
+        };
+      });
     }
   });
   

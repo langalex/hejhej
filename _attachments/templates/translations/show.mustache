@@ -3,11 +3,13 @@
 <p>{{ description }}</p>
 
 <form action="#/translations/{{_id}}/completions" method="post">
-  <dl>
+  <ul>
     {{#terms}}
-      <dt class="text">{{term}}</dt>
-      <dd><input type="text" name="answers" id="translation{{index}}"/></dd>
+      <li>
+        <label for="translation{{index}}">{{term}}</label>
+        <input type="text" name="answers" id="translation{{index}}" class="translation"/>
+      </li>
     {{/terms}}
-  </dl>
+  </ul>
   <p><input type="submit" value="Done"/></p>
 </form>

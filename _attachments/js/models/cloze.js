@@ -47,19 +47,16 @@ Cloze.prototype = {
   },
   correct_answers: function(answers) {
     var _answers = [answers].flatten()
-    return this.blanks.reduce(function(res, blank, i) {
+    return this.blanks.map(function(blank, i) {
       if(_answers[i] == blank) {
-        res.push(blank);
+        return blank;
       } else {
-        res.push(null);
+        return null;
       };
-      return res;
-    }, []);
+    });
   },
   correct_answers_count: function(answers) {
-    return this.correct_answers(answers).reduce(function(sum, answer) {
-      return sum + (answer === null ? 0 : 1);
-    }, 0);
+    return this.correct_answers(answers).compact().length;
   },
   to_json: function() {
     return {
