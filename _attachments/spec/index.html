@@ -5,6 +5,7 @@
     <script src="../js/lib.js"></script>
     <script src="../js/models/cloze.js"></script>
     <script src="../js/models/translation.js"></script>
+    <script src="../js/models/user.js"></script>
     <script src="../js/views/cloze.js"></script>
     <script src="../js/views/translation.js"></script>
     <script>
@@ -14,7 +15,7 @@
         .exec('cloze_view_spec.js')
         .exec('translation_spec.js')
         .exec('translation_view_spec.js')
-        .exec('mustache_spec.js')
+        .exec('user_spec.js')
         .run({failuresOnly : true})
         .report();
       }

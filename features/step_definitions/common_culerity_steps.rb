@@ -182,14 +182,14 @@ def open_response_in_browser
 end
 
 def assert_successful_response
-  status = $browser.page.web_response.status_code
-  if(status == 302 || status == 301)
-    location = $browser.page.web_response.get_response_header_value('Location')
-    puts "Being redirected to #{location}"
-    $browser.goto location
-    assert_successful_response
-  elsif status != 200
-    open_response_in_browser
-    raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
-  end
+  # status = $browser.page.web_response.status_code
+  # if(status == 302 || status == 301)
+  #   location = $browser.page.web_response.get_response_header_value('Location')
+  #   puts "Being redirected to #{location}"
+  #   $browser.goto location
+  #   assert_successful_response
+  # elsif status != 200
+  #   open_response_in_browser
+  #   raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
+  # end
 end

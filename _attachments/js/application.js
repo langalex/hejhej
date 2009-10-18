@@ -9,14 +9,19 @@ var sammy = new Sammy.Application(function() { with(this) {
   use(Sammy.Mustache);
   
   helpers({
-    create_object: function(name, params) {
+    create_object: function(name, params, options) {
+      options = options || {};
+      var context = this;
       var _prototype = eval(name);
       var object = new _prototype(params);
       if(object.valid()) {
         couchapp.db.saveDoc(object.to_json(), {
           success: function(res) {
             trigger('notice', {message: name + ' saved'});
-            redirect('#/' + name.toLowerCase() + 's/' + res.id);
+            if(options.success) {
+              options.success(object);
+            }
+            context.redirect(options.redirect || ('#/' + name.toLowerCase() + 's/' + res.id));
           },
           error: function(response_code, res) {
             trigger('error', {message: 'Error saving ' + name + ': ' + res});
@@ -65,6 +70,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   
   Clozes(this);
   Translations(this);
+  Users(this);
   
   before(function() {
     $('#error').html('').hide();

@@ -28,3 +28,11 @@ Array.prototype.compact = function() {
     return res;
   }, [])
 }
+
+String.prototype.reverse = function() {
+  var reversed = [];
+  for(var i = 0; i < this.length; i++) {
+    reversed[this.length - i - 1] = this[i];
+  }
+  return reversed.join('');
+}

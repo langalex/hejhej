@@ -8,6 +8,7 @@
     <div id="nav">
       <ul>
         <li><a href="index.html">Home</a></li>
+        <li><a href="#/users/new">Sign Up</a></li>
         <li><a href="#/clozes">Clozes</a></li>
         <li><a href="#/translations">Translations</a></li>
       </ul>
@@ -17,18 +18,20 @@
     <div id="content"></div>
   </body>
   <script type="text/javascript" charset="utf-8"></script>
-  <script src="/_utils/script/json2.js"></script>
+  <script src="./vendor/json/json2.js"></script>
   <script src="./vendor/jquery/jquery.js"></script>
-  <script src="/_utils/script/jquery.couch.js"></script>
+  <script src="./vendor/jquery/jquery.couch.js"></script>
   <script src="./vendor/couchapp/jquery.couchapp.js"></script>
   <script src="./vendor/sammy/sammy.js"></script>
   <script src="./vendor/mustache/mustache.js"></script>
   <script src="./vendor/mustache/sammy.mustache.js"></script>
   <script src="./js/lib.js"></script>
+  <script src="./js/controllers/users.js"></script>
   <script src="./js/controllers/clozes.js"></script>
   <script src="./js/controllers/translations.js"></script>
   <script src="./js/models/cloze.js"></script>
   <script src="./js/models/translation.js"></script>
+  <script src="./js/models/user.js"></script>
   <script src="./js/views/cloze.js"></script>
   <script src="./js/views/translation.js"></script>
   <script src="./js/application.js"></script>
