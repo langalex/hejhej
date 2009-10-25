@@ -29,7 +29,6 @@ When /I press "(.*)"/ do |button|
   button = [$browser.button(:text, button), $browser.button(:id, button)].find(&:exist?)
   button.click
   When 'I wait for the AJAX call to finish'
-  assert_successful_response
 end
 
 When /I click "(.*)"/ do |link|
@@ -41,15 +40,12 @@ When /I follow "(.*)"/ do |link|
   raise "link \"#{link}\" not found" unless _link
   _link.click
   When 'I wait for the AJAX call to finish'
-  assert_successful_response
 end
 
 When /I follow \/(.*)\// do |link|
   $browser.link(:text, /#{link}/).click
   When 'I wait for the AJAX call to finish'
-  assert_successful_response
 end
-
 
 When /I fill in "(.*)" with "(.*)"/ do |field, value|
   find_by_label_or_id(:text_field, field).set value
@@ -83,18 +79,15 @@ When /^I select "([^"]+)"$/ do |value|
   $browser.option(:text => value).select
 end
 
-
 When /I choose "(.*)"/ do |field|
   $browser.radio(:id, find_label(field).for).set(true)
 end
 
 When /I go to the (.+)/ do |path|
   $browser.goto host + path_to(path)
-  assert_successful_response
 end
 
 When /I wait for the AJAX call to finish/ do
-  #$browser.wait
   sleep 0.4
 end
 
@@ -181,15 +174,3 @@ def open_response_in_browser
   `open #{tmp_file}`
 end
 
-def assert_successful_response
-  # status = $browser.page.web_response.status_code
-  # if(status == 302 || status == 301)
-  #   location = $browser.page.web_response.get_response_header_value('Location')
-  #   puts "Being redirected to #{location}"
-  #   $browser.goto location
-  #   assert_successful_response
-  # elsif status != 200
-  #   open_response_in_browser
-  #   raise "Brower returned Response Code #{$browser.page.web_response.status_code}"
-  # end
-end
