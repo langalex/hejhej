@@ -5,6 +5,10 @@
     },
     "test": {
       "db": "http://localhost:5984/hejhej_test"
-    }
+    },
+    "production": {
+      "db": "http://localhost:5984/hejhej_production"
+    },
+    
   }
 }
