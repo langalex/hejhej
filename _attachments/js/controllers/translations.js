@@ -27,15 +27,28 @@ Translations = function(sammy) { with(sammy) {
   
   post('#/translations/:id/completions', function() {
     var context = this;
+    var answers = parseAnswers(this.params)
+    
     couchapp.db.openDoc(this.params['id'], {
       success: function(doc) {
         var translation = new Translation(doc);
-        trigger('notice', {message: 'You got ' + translation.correct_answers_count(context.params['answers']) + ' out of ' + translation.terms.length + ' right.'});
-        context.mark_false_answers(translation.correct_answers(context.params['answers']), 'input.translation');
+        trigger('notice', {message: 'You got ' + translation.correct_answers_count(answers) + ' out of ' + translation.terms.length + ' right.'});
+        context.mark_false_answers(translation.correct_answers(answers), '#translation{{i}}');
         $('#submit').hide();
       }
     });
     return false;
+    
+    function parseAnswers(params) {
+      var answers = [];
+      for(var name in context.params) {
+       if(name.match(/answers\[\d+\]/)) {
+         var index = parseInt(name.match(/\[(\d+)\]/)[1]);
+         answers[index] = context.params[name];
+       } 
+      };
+      return answers;
+    }
   });
   
   post('#/translations', function() {

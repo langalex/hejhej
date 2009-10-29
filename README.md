@@ -17,8 +17,6 @@ Warning: This app is not ready to deployed onto the internet, specifically becau
 
 ### Translations
 
-* reveal translations when done, esp. the incorrect ones
-* randomize order of translations
 * do translations in reverse 
 * find more general term
 

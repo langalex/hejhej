@@ -62,7 +62,7 @@ var sammy = new Sammy.Application(function() { with(this) {
       $(element_selector).find(input_selector).removeClass('error');
       answers.forEach(function(answer, i) {
         if(!answer.correct) {
-          $(element_selector).find(input_selector + ':eq(' + i + ')').addClass('error').after('<span class="correct_answer">' + answer.correct_answer + '</span>');
+          $(element_selector).find(input_selector.replace(/\{\{i\}\}/g, i)).addClass('error').after('<span class="correct_answer">' + answer.correct_answer + '</span>');
         };
       });
     }

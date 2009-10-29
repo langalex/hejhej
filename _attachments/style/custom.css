@@ -2,6 +2,10 @@
 
 .container {width:950px;margin:0 auto;}
 
+#notice, #error {
+  display: none;
+}
+
 #header {
   background: blue;
   clear: both;

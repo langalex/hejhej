@@ -7,7 +7,7 @@
     {{#terms}}
       <li>
         <label for="translation{{index}}">{{term}}</label>
-        <input type="text" name="answers" id="translation{{index}}" class="translation"/>
+        <input type="text" name="answers[{{index}}]" id="translation{{index}}" class="translation"/>
       </li>
     {{/terms}}
   </ul>
