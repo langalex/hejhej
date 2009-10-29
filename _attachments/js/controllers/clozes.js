@@ -15,6 +15,7 @@ Clozes = function(sammy) { with(sammy) {
         var cloze = new Cloze(doc);
         trigger('notice', {message: 'You got ' + cloze.correct_answers_count(context.params['answers']) + ' out of ' + cloze.blanks.length + ' right.'});
         context.mark_false_answers(cloze.correct_answers(context.params['answers']), 'input.blank');
+        $('#submit').hide();
       }
     });
     return false;

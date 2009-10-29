@@ -32,6 +32,7 @@ Translations = function(sammy) { with(sammy) {
         var translation = new Translation(doc);
         trigger('notice', {message: 'You got ' + translation.correct_answers_count(context.params['answers']) + ' out of ' + translation.terms.length + ' right.'});
         context.mark_false_answers(translation.correct_answers(context.params['answers']), 'input.translation');
+        $('#submit').hide();
       }
     });
     return false;

@@ -30,12 +30,12 @@ describe 'Translation'
       translation = new Translation({translations: ['jag', 'du', 'han'], terms: []})
     end
     
-    it "should return the correct answers and nil for incorrect answers"
-      translation.correct_answers(['jag', 'x', 'han']).should.eql(['jag', null, 'han'])
+    it "should return objects with correct and false answers"
+      translation.correct_answers(['jag', 'x', 'han']).should.eql([{correct: true}, {correct: false, correct_answer: "du"}, {correct: true}])
     end
     
     it "should work if there is only one answer"
-      translation.correct_answers('jag').should.eql(['jag', null, null]);
+      translation.correct_answers('jag').should.eql([{correct: true}, {correct: false, correct_answer: "du"}, {correct: false, correct_answer: "han"}]);
     end
   end
   

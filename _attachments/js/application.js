@@ -61,8 +61,8 @@ var sammy = new Sammy.Application(function() { with(this) {
     mark_false_answers: function(answers, input_selector) {
       $(element_selector).find(input_selector).removeClass('error');
       answers.forEach(function(answer, i) {
-        if(answer === null) {
-          $(element_selector).find(input_selector + ':eq(' + i + ')').addClass('error');
+        if(!answer.correct) {
+          $(element_selector).find(input_selector + ':eq(' + i + ')').addClass('error').after('<span class="correct_answer">' + answer.correct_answer + '</span>');
         };
       });
     }
@@ -85,18 +85,11 @@ var sammy = new Sammy.Application(function() { with(this) {
   get('#/', function() {});
   
   bind('error', function(e, data) { with(this) {
-    $('#error').html(data.message).show().css('background', 'red');
-    window.setTimeout(function() {
-      $('#error').css('background', 'none');
-    }, 1000);
-    
+    $('#error').html(data.message).show();
   }});
   
   bind('notice', function(e, data) { with(this) {
-    $('#notice').html(data.message).show().css('background', 'green');
-    window.setTimeout(function() {
-      $('#notice').css('background', 'none');
-    }, 1000);
+    $('#notice').html(data.message).show();
   }});
 }});
 

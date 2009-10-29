@@ -9,5 +9,5 @@ require 'json'
 Before do
   RestClient.delete "#{host}/#{database}" rescue nil
   RestClient.put "#{host}/#{database}", ""
-  system "couchapp push"
+  system "couchapp push test"
 end

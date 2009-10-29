@@ -49,14 +49,14 @@ Cloze.prototype = {
     var _answers = [answers].flatten()
     return this.blanks.map(function(blank, i) {
       if(_answers[i] == blank) {
-        return blank;
+        return {correct: true};
       } else {
-        return null;
+        return {correct: false, correct_answer: blank};
       };
     });
   },
   correct_answers_count: function(answers) {
-    return this.correct_answers(answers).compact().length;
+    return this.correct_answers(answers).select(function(answer) {return(answer.correct)}).length;
   },
   to_json: function() {
     return {

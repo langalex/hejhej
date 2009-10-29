@@ -20,6 +20,16 @@ Array.prototype.reject = function(fun) {
   }, []);
 }
 
+Array.prototype.select = function(fun) {
+  return this.reduce(function(res, el) {
+    if(fun(el)) {
+      res.push(el);
+    };
+    return res;
+  }, []);
+}
+
+
 Array.prototype.compact = function() {
   return this.reduce(function(res, el) {
     if(el !== null) {

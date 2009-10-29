@@ -22,4 +22,4 @@ Feature: Solve cloze
     Then I should see "You got 1 out of 2 right."
       And "blank1" should have the class "error"
       And "blank0" should not have the class "error"
-    
+      And I should see "railscamp"

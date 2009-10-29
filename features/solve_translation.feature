@@ -24,3 +24,4 @@ Feature: Solve translation
     Then I should see "You got 1 out of 2 right"
       And "translation0" should not have the class "error"
       And "translation1" should have the class "error"
+      And I should see "du"

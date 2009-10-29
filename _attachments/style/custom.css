@@ -4,8 +4,8 @@
 
 #header {
   background: blue;
-  clear: left;
-  height: 60px;
+  clear: both;
+  height: 70px;
 }
 
 #header #logo {
@@ -27,6 +27,13 @@
 
 input.error {
   border: 1px red solid;
+}
+
+.correct_answer {
+  background:#E6EFC2;
+  color:#264409;
+  border: 1px solid #C6D880;
+  padding:.8em;
 }
 
 /* navigation */
@@ -51,6 +58,7 @@ input.error {
 
 #nav li a {
   padding: 10px;
+  padding-bottom: 5px;
   color: white;
   text-decoration: none;
   font-weight: bold;

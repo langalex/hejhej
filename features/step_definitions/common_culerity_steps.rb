@@ -17,6 +17,10 @@ def host
 end
 
 def database
+  'hejhej_test'
+end
+
+def app
   'hejhej'
 end
 
