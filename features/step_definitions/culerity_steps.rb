@@ -92,7 +92,7 @@ When /I go to the (.+)/ do |path|
 end
 
 When /I wait for the AJAX call to finish/ do
-  sleep 0.4
+  sleep 1
 end
 
 When /^I visit "([^"]+)"$/ do |url|

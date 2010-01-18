@@ -76,7 +76,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   before(function() {
     this.current_user(function() {
       $('#nav .login, #nav .signup').hide();
-      $('#nav .account').css('display', 'inline-block');
+      $('#nav .account, #nav .logout').css('display', 'inline-block');
     });
     $('#error').html('').hide();
     $('#notice').html('').hide();
@@ -96,12 +96,13 @@ var sammy = new Sammy.Application(function() { with(this) {
 $(function() {
   sammy.run('#/');
 
+  // culerity is broken anyway
   // without this hack cucumber/culerity doesn't recognize the changed hash
-  $('a').live('click', function() {
-    var hash = $(this).attr('href').match(/#.+/)[0];
-    if(hash) {
-      sammy.runRoute('get', hash);
-    };
-    return false;
-  });
+  // $('a').live('click', function() {
+  //   var hash = $(this).attr('href').match(/#.+/)[0];
+  //   if(hash) {
+  //     sammy.runRoute('get', hash);
+  //   };
+  //   return false;
+  // });
 });

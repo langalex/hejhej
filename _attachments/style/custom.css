@@ -42,7 +42,7 @@ input.error {
 
 /* navigation */
 
-#nav .account {
+#nav .account, #nav .logout {
   display: none; /* only shown after login */
 }
 
