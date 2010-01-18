@@ -13,7 +13,7 @@ Before do
 end
 
 def host
-  'http://localhost:5984'
+  'http://localhost:5985'
 end
 
 def database

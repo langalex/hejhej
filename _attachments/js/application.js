@@ -76,7 +76,7 @@ var sammy = new Sammy.Application(function() { with(this) {
   before(function() {
     this.current_user(function() {
       $('#nav .login, #nav .signup').hide();
-      $('#nav .account').show();
+      $('#nav .account').css('display', 'inline-block');
     });
     $('#error').html('').hide();
     $('#notice').html('').hide();
